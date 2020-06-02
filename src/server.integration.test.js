@@ -1,8 +1,12 @@
+import 'dotenv/config'
+
 import { beforeAll, expect } from '@jest/globals'
 
 import { app } from './server-helper'
 
 import axios from 'axios'
+
+const DEFAULT_MAX_PARAGRAPH_LENGTH = 50 // TODO - Extract to common constant holder
 
 beforeAll(async () => await app.listen(3000))
 
@@ -13,6 +17,7 @@ test('Should be possible to access initial data', async () => {
     id: '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d',
     make: 'SEAT',
     model: 'Makinero',
+    modelParagraph: 'marinero mcenroe mcinerney my country make merry',
     colour: 'White',
     year: '1977',
   })
@@ -21,13 +26,17 @@ test('Should be possible to access initial data', async () => {
 
 let newCarId
 test('Should be possible to add new data', async () => {
-  const response = await axios.post('http://localhost:3000/car', { model: 'McLaren', make: 'F1', colour: 'Silver', year: '1996' })
+  const response = await axios.post('http://localhost:3000/car', { make: 'McLaren', model: 'F1', colour: 'Silver', year: '1996' })
 
   newCarId = response.data.id
 
   expect(newCarId).toBeDefined()
-  expect(response.data.model).toBe('McLaren')
-  expect(response.data.make).toBe('F1')
+  expect(response.data.make).toBe('McLaren')
+  expect(response.data.model).toBe('F1')
+  expect(response.data.modelParagraph.length).toBeGreaterThan(0)
+  expect(response.data.modelParagraph.length).toBeLessThanOrEqual(
+    Number(process.env.WORDS_SOUNDING_SIMILAR_TO_MODEL_MAX_PARAGRAPH_LENGTH) || DEFAULT_MAX_PARAGRAPH_LENGTH
+  )
   expect(response.data.colour).toBe('Silver')
   expect(response.data.year).toBe('1996')
   expect(response.status).toEqual(200)
@@ -37,8 +46,12 @@ test('Should be possible to access new data', async () => {
   const response = await axios.get(`http://localhost:3000/car/${newCarId}`)
 
   expect(response.data.id).toBe(newCarId)
-  expect(response.data.model).toBe('McLaren')
-  expect(response.data.make).toBe('F1')
+  expect(response.data.make).toBe('McLaren')
+  expect(response.data.model).toBe('F1')
+  expect(response.data.modelParagraph.length).toBeGreaterThan(0)
+  expect(response.data.modelParagraph.length).toBeLessThanOrEqual(
+    Number(process.env.WORDS_SOUNDING_SIMILAR_TO_MODEL_MAX_PARAGRAPH_LENGTH) || DEFAULT_MAX_PARAGRAPH_LENGTH
+  )
   expect(response.data.colour).toBe('Silver')
   expect(response.data.year).toBe('1996')
   expect(response.status).toEqual(200)

@@ -8,6 +8,8 @@ import bodyParser from 'body-parser'
 
 import { v4 as uuidv4 } from 'uuid'
 
+import { fewWordsSoundingLike } from './data-muse'
+
 export const app = express()
 
 app.use(cors())
@@ -21,8 +23,16 @@ app.get('/car/:id', (req, res) => {
   res.send(car)
 })
 
-app.post('/car', (req, res) => {
-  const car = { id: uuidv4(), make: req.body.make, model: req.body.model, colour: req.body.colour, year: req.body.year }
+app.post('/car', async (req, res) => {
+  const modelParagraph = await fewWordsSoundingLike(req.body.model)
+  const car = {
+    id: uuidv4(),
+    make: req.body.make,
+    model: req.body.model,
+    modelParagraph: modelParagraph,
+    colour: req.body.colour,
+    year: req.body.year,
+  }
   cars.set(car.id, car)
   return res.send(car)
 })

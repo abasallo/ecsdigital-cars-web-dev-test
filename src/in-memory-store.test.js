@@ -11,6 +11,7 @@ test('Initial data should what expected', () => {
   expect(initialData.id).toBe('9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d')
   expect(initialData.make).toBe('SEAT')
   expect(initialData.model).toBe('Makinero')
+  expect(initialData.modelParagraph).toBe('marinero mcenroe mcinerney my country make merry')
   expect(initialData.colour).toBe('White')
   expect(initialData.year).toBe('1977')
 })

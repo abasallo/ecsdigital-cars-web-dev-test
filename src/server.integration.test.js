@@ -26,11 +26,31 @@ test('Should be possible to access initial data', async () => {
 
 let newCarId
 test('Should be possible to add new data', async () => {
-  const response = await axios.post('http://localhost:3000/car', { make: 'McLaren', model: 'F1', colour: 'Silver', year: '1996' })
+  const response = await axios.post('http://localhost:3000/car', { make: 'MCLaren', model: 'P1', colour: 'Grey', year: '1995' })
 
   newCarId = response.data.id
 
   expect(newCarId).toBeDefined()
+  expect(response.data.make).toBe('MCLaren')
+  expect(response.data.model).toBe('P1')
+  expect(response.data.modelParagraph.length).toBeGreaterThan(0)
+  expect(response.data.modelParagraph.length).toBeLessThanOrEqual(
+    Number(process.env.WORDS_SOUNDING_SIMILAR_TO_MODEL_MAX_PARAGRAPH_LENGTH) || DEFAULT_MAX_PARAGRAPH_LENGTH
+  )
+  expect(response.data.colour).toBe('Grey')
+  expect(response.data.year).toBe('1995')
+  expect(response.status).toEqual(200)
+})
+
+test('Should be possible to update new data', async () => {
+  const response = await axios.put('http://localhost:3000/car', {
+    id: newCarId,
+    make: 'McLaren',
+    model: 'F1',
+    colour: 'Silver',
+    year: '1996',
+  })
+
   expect(response.data.make).toBe('McLaren')
   expect(response.data.model).toBe('F1')
   expect(response.data.modelParagraph.length).toBeGreaterThan(0)

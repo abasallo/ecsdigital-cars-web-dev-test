@@ -37,6 +37,20 @@ app.post('/car', async (req, res) => {
   return res.send(car)
 })
 
+app.put('/car', async (req, res) => {
+  const modelParagraph = await fewWordsSoundingLike(req.body.model)
+  const car = {
+    id: req.body.id,
+    make: req.body.make,
+    model: req.body.model,
+    modelParagraph: modelParagraph,
+    colour: req.body.colour,
+    year: req.body.year,
+  }
+  cars.set(car.id, car)
+  return res.send(car)
+})
+
 app.delete('/car/:id', (req, res) => {
   cars.delete(req.params.id) ? res.status(200) : res.status(404)
   return res.send()

@@ -4,6 +4,8 @@ import cors from 'cors'
 
 import bodyParser from 'body-parser'
 
+import HttpStatus from 'http-status-codes'
+
 import routes from './routes'
 
 import { initSequelize } from './orm/sequelize'
@@ -16,6 +18,15 @@ server.use(cors())
 
 server.use(bodyParser.urlencoded({ extended: false }))
 server.use(bodyParser.json())
+
+server.use((err, req, res, next) => {
+  const BAD_REQUEST = HttpStatus.BAD_REQUEST
+  if (err instanceof SyntaxError && err.status === BAD_REQUEST && 'body' in err) {
+    console.error(err)
+    return res.sendStatus(BAD_REQUEST)
+  }
+  next()
+})
 
 server.use('/make', routes.make)
 server.use('/model', routes.model)

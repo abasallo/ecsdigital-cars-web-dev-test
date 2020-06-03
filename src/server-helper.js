@@ -1,5 +1,3 @@
-import { cars } from './in-memory-store'
-
 import express from 'express'
 
 import cors from 'cors'
@@ -10,48 +8,59 @@ import { v4 as uuidv4 } from 'uuid'
 
 import { fewWordsSoundingLike } from './data-muse'
 
-export const app = express()
+import { initSequelize } from './orm/sequelize'
 
-app.use(cors())
+export const model = initSequelize()
 
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+export const server = express()
 
-app.get('/car/:id', (req, res) => {
-  const car = cars.get(req.params.id)
-  if (car === undefined) res.status(404)
+server.use(cors())
+
+server.use(bodyParser.urlencoded({ extended: false }))
+server.use(bodyParser.json())
+
+server.get('/car/:id', async (req, res) => {
+  const car = await (await model).Car.findOne({ where: { id: req.params.id } })
+  if (!car) res.status(404)
   res.send(car)
 })
 
-app.post('/car', async (req, res) => {
-  const modelParagraph = await fewWordsSoundingLike(req.body.model)
-  const car = {
-    id: uuidv4(),
-    make: req.body.make,
-    model: req.body.model,
-    modelParagraph: modelParagraph,
-    colour: req.body.colour,
-    year: req.body.year,
-  }
-  cars.set(car.id, car)
-  return res.send(car)
+server.post('/car', async (req, res) =>
+  res.send(
+    await (await model).Car.create({
+      id: uuidv4(), // TODO - Maybe replace by Sequelize native functionality for this
+      make: req.body.make,
+      model: req.body.model,
+      modelParagraph: await fewWordsSoundingLike(req.body.model),
+      colour: req.body.colour,
+      year: req.body.year,
+    })
+  )
+)
+
+server.put('/car', async (req, res) => {
+  const car = await (await model).Car.findOne({ where: { id: req.body.id } })
+  if (car) {
+    ;(await model).Car.update(
+      {
+        make: req.body.make,
+        model: req.body.model,
+        modelParagraph: await fewWordsSoundingLike(req.body.model),
+        colour: req.body.colour,
+        year: req.body.year,
+      },
+      { where: { id: req.body.id } }
+    )
+    res.status(200)
+  } else res.status(404)
+  return res.send()
 })
 
-app.put('/car', async (req, res) => {
-  const modelParagraph = await fewWordsSoundingLike(req.body.model)
-  const car = {
-    id: req.body.id,
-    make: req.body.make,
-    model: req.body.model,
-    modelParagraph: modelParagraph,
-    colour: req.body.colour,
-    year: req.body.year,
-  }
-  cars.set(car.id, car)
-  return res.send(car)
-})
-
-app.delete('/car/:id', (req, res) => {
-  cars.delete(req.params.id) ? res.status(200) : res.status(404)
+server.delete('/car/:id', async (req, res) => {
+  const car = await (await model).Car.findOne({ where: { id: req.params.id } })
+  if (car) {
+    car.destroy()
+    res.status(200)
+  } else res.status(404)
   return res.send()
 })

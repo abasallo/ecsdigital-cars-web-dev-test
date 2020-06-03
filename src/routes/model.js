@@ -2,8 +2,6 @@ import HttpStatus from 'http-status-codes'
 
 import { fewWordsSoundingLike } from '../data-muse'
 
-import { v4 as uuidv4 } from 'uuid'
-
 import { model as sequelizeModel } from '../server-helper'
 
 import { Router } from 'express'
@@ -16,11 +14,9 @@ router.get('/:id', async (req, res) => {
   res.send(model)
 })
 
-// TODO - Maybe replace by Sequelize native functionality for UUIDv4
 router.post('/', async (req, res) =>
   res.send(
     await (await sequelizeModel).Model.create({
-      id: uuidv4(),
       makeId: req.body.makeId,
       name: req.body.name,
       similarSoundingWordToNameParagraph: await fewWordsSoundingLike(req.body.name),

@@ -1,7 +1,5 @@
 import HttpStatus from 'http-status-codes'
 
-import { v4 as uuidv4 } from 'uuid'
-
 import { model } from '../server-helper'
 
 import { Router } from 'express'
@@ -14,11 +12,9 @@ router.get('/:id', async (req, res) => {
   res.send(car)
 })
 
-// TODO - Maybe replace by Sequelize native functionality for UUIDv4
 router.post('/', async (req, res) =>
   res.send(
     await (await model).Car.create({
-      id: uuidv4(),
       modelId: req.body.modelId,
       colour: req.body.colour,
       year: req.body.year,

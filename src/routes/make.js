@@ -1,7 +1,5 @@
 import HttpStatus from 'http-status-codes'
 
-import { v4 as uuidv4 } from 'uuid'
-
 import { model } from '../server-helper'
 
 import { Router } from 'express'
@@ -14,8 +12,7 @@ router.get('/:id', async (req, res) => {
   res.send(make)
 })
 
-// TODO - Maybe replace by Sequelize native functionality for UUIDv4
-router.post('/', async (req, res) => res.send(await (await model).Make.create({ id: uuidv4(), name: req.body.name })))
+router.post('/', async (req, res) => res.send(await (await model).Make.create({ name: req.body.name })))
 
 router.put('/', async (req, res) => {
   const make = await (await model).Make.findOne({ where: { id: req.body.id } })

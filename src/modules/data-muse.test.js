@@ -1,6 +1,6 @@
 import 'dotenv/config'
 
-import constants from './modules/constants'
+import constants from './constants'
 
 import { expect } from '@jest/globals'
 

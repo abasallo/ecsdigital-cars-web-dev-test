@@ -1,6 +1,6 @@
 import HttpStatus from 'http-status-codes'
 
-import { fewWordsSoundingLike } from '../data-muse'
+import { fewWordsSoundingLike } from '../modules/data-muse'
 
 import { model as sequelizeModel } from '../server-helper'
 

@@ -1,4 +1,4 @@
-import constants from './modules/constants'
+import constants from './constants'
 
 import axios from 'axios'
 

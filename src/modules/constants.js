@@ -1,0 +1,6 @@
+export default {
+  DEFAULT_PORT: 3000,
+  DEFAULT_E2E_SERVER_PORT: 3001,
+  WORDS_SOUNDING_SIMILAR_TO_MUSE_URL: 'https://api.datamuse.com/words?sl=',
+  DEFAULT_MAX_PARAGRAPH_LENGTH: 50,
+}

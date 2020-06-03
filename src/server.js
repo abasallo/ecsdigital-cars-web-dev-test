@@ -1,13 +1,13 @@
 import 'dotenv/config'
 
-import { model, server } from './server-helper'
+import constants from './modules/constants'
 
-const DEFAULT_PORT = 3000 // TODO - Extract to common constant holder
+import { model, server } from './server-helper'
 
 model
   .then(() => console.log('ecsdigital-cars-web-dev-test database initialised.'))
   .catch((error) => console.error(`ecsdigital-cars-web-dev-test database initialisation error: ${error}`))
 
-server.listen(process.env.PORT || DEFAULT_PORT, () =>
-  console.log(`ecsdigital-cars-web-dev-test server running on port: ${process.env.PORT || DEFAULT_PORT}.`)
+server.listen(process.env.PORT || constants.DEFAULT_PORT, () =>
+  console.log(`ecsdigital-cars-web-dev-test server running on port: ${process.env.PORT || constants.DEFAULT_PORT}.`)
 )

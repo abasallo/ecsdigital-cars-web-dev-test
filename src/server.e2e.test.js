@@ -1,5 +1,7 @@
 import 'dotenv/config'
 
+import constants from './modules/constants'
+
 import HttpStatus from 'http-status-codes'
 
 import { afterAll, beforeAll, expect } from '@jest/globals'
@@ -11,11 +13,8 @@ import { closeSequelize, connectWithOptions } from './orm/sequelize'
 
 import axios from 'axios'
 
-const DEFAULT_E2E_SERVER_PORT = 3001 // TODO - Extract to common constant holder
-const DEFAULT_MAX_PARAGRAPH_LENGTH = 50 // TODO - Extract to common constant holder
-
 beforeAll(async () => {
-  await server.listen(DEFAULT_E2E_SERVER_PORT)
+  await server.listen(constants.DEFAULT_E2E_SERVER_PORT)
   const sequelize = await connectWithOptions(
     process.env.DATABASE_DIALECT,
     process.env.DATABASE_PATH_TEST,
@@ -35,7 +34,7 @@ afterAll(async () => {
 
 let newMakeId
 test('Make - Should be possible to add new data', async () => {
-  const response = await axios.post('http://localhost:3001/make', { name: 'MCLaren' })
+  const response = await axios.post(`http://localhost:${constants.DEFAULT_E2E_SERVER_PORT}/make`, { name: 'MCLaren' })
   newMakeId = response.data.id
 
   expect(response.data.id).toBeDefined()
@@ -44,8 +43,8 @@ test('Make - Should be possible to add new data', async () => {
 })
 
 test('Make - Should be possible to update an existing data', async () => {
-  await axios.put('http://localhost:3001/make', { id: newMakeId, name: 'McLaren' })
-  const updated = await axios.get(`http://localhost:3001/make/${newMakeId}`)
+  await axios.put(`http://localhost:${constants.DEFAULT_E2E_SERVER_PORT}/make`, { id: newMakeId, name: 'McLaren' })
+  const updated = await axios.get(`http://localhost:${constants.DEFAULT_E2E_SERVER_PORT}/make/${newMakeId}`)
 
   expect(updated.data.id).toBe(newMakeId)
   expect(updated.data.name).toBe('McLaren')
@@ -53,7 +52,7 @@ test('Make - Should be possible to update an existing data', async () => {
 })
 
 test('Make - Should be possible to access existing data', async () => {
-  const response = await axios.get(`http://localhost:3001/make/${newMakeId}`)
+  const response = await axios.get(`http://localhost:${constants.DEFAULT_E2E_SERVER_PORT}/make/${newMakeId}`)
 
   expect(response.data.id).toBe(newMakeId)
   expect(response.data.name).toBe('McLaren')
@@ -64,7 +63,7 @@ test('Make - Should be possible to access existing data', async () => {
 
 let newModelId
 test('Model - Should be possible to add new data', async () => {
-  const response = await axios.post('http://localhost:3001/model', { name: 'F-One' })
+  const response = await axios.post(`http://localhost:${constants.DEFAULT_E2E_SERVER_PORT}/model`, { name: 'F-One' })
   newModelId = response.data.id
 
   expect(response.data.id).toBeDefined()
@@ -72,27 +71,27 @@ test('Model - Should be possible to add new data', async () => {
   expect(response.data.name).toBe('F-One')
   expect(response.data.similarSoundingWordToNameParagraph.length).toBeGreaterThan(0)
   expect(response.data.similarSoundingWordToNameParagraph.length).toBeLessThanOrEqual(
-    Number(process.env.WORDS_SOUNDING_SIMILAR_TO_MODEL_MAX_PARAGRAPH_LENGTH) || DEFAULT_MAX_PARAGRAPH_LENGTH
+    Number(process.env.WORDS_SOUNDING_SIMILAR_TO_MODEL_MAX_PARAGRAPH_LENGTH) || constants.DEFAULT_MAX_PARAGRAPH_LENGTH
   )
   expect(response.status).toEqual(HttpStatus.OK)
 })
 
 test('Model - Should be possible to update an existing data', async () => {
-  await axios.put('http://localhost:3001/model', { id: newModelId, makeId: newMakeId, name: 'F1' })
-  const updated = await axios.get(`http://localhost:3001/model/${newModelId}`)
+  await axios.put(`http://localhost:${constants.DEFAULT_E2E_SERVER_PORT}/model`, { id: newModelId, makeId: newMakeId, name: 'F1' })
+  const updated = await axios.get(`http://localhost:${constants.DEFAULT_E2E_SERVER_PORT}/model/${newModelId}`)
 
   expect(updated.data.id).toBe(newModelId)
   expect(updated.data.makeId).toBe(newMakeId)
   expect(updated.data.name).toBe('F1')
   expect(updated.data.similarSoundingWordToNameParagraph.length).toBeGreaterThan(0)
   expect(updated.data.similarSoundingWordToNameParagraph.length).toBeLessThanOrEqual(
-    Number(process.env.WORDS_SOUNDING_SIMILAR_TO_MODEL_MAX_PARAGRAPH_LENGTH) || DEFAULT_MAX_PARAGRAPH_LENGTH
+    Number(process.env.WORDS_SOUNDING_SIMILAR_TO_MODEL_MAX_PARAGRAPH_LENGTH) || constants.DEFAULT_MAX_PARAGRAPH_LENGTH
   )
   expect(updated.status).toEqual(HttpStatus.OK)
 })
 
 test('Model - Should be possible to access existing data', async () => {
-  const response = await axios.get(`http://localhost:3001/model/${newModelId}`)
+  const response = await axios.get(`http://localhost:${constants.DEFAULT_E2E_SERVER_PORT}/model/${newModelId}`)
 
   expect(response.data.id).toBe(newModelId)
   expect(response.data.makeId).toBe(newMakeId)
@@ -104,7 +103,7 @@ test('Model - Should be possible to access existing data', async () => {
 
 let newCarId
 test('Car - Should be possible to add new data', async () => {
-  const response = await axios.post('http://localhost:3001/car', { colour: 'Grey', year: '1995' })
+  const response = await axios.post(`http://localhost:${constants.DEFAULT_E2E_SERVER_PORT}/car`, { colour: 'Grey', year: '1995' })
   newCarId = response.data.id
 
   expect(response.data.id).toBeDefined()
@@ -115,9 +114,14 @@ test('Car - Should be possible to add new data', async () => {
 })
 
 test('Car - Should be possible to update new data', async () => {
-  await axios.put('http://localhost:3001/car', { id: newCarId, modelId: newModelId, colour: 'Silver', year: '1996' })
+  await axios.put(`http://localhost:${constants.DEFAULT_E2E_SERVER_PORT}/car`, {
+    id: newCarId,
+    modelId: newModelId,
+    colour: 'Silver',
+    year: '1996',
+  })
 
-  const updated = await axios.get(`http://localhost:3001/car/${newCarId}`)
+  const updated = await axios.get(`http://localhost:${constants.DEFAULT_E2E_SERVER_PORT}/car/${newCarId}`)
 
   expect(updated.data.id).toBe(newCarId)
   expect(updated.data.modelId).toBe(newModelId)
@@ -127,7 +131,7 @@ test('Car - Should be possible to update new data', async () => {
 })
 
 test('Car - Should be possible to access new data', async () => {
-  const response = await axios.get(`http://localhost:3001/car/${newCarId}`)
+  const response = await axios.get(`http://localhost:${constants.DEFAULT_E2E_SERVER_PORT}/car/${newCarId}`)
 
   expect(response.data.id).toBe(newCarId)
   expect(response.data.modelId).toBe(newModelId)
@@ -139,63 +143,65 @@ test('Car - Should be possible to access new data', async () => {
 // Car - D
 
 test('Car - Should be possible to delete just added data', async () => {
-  const response = await axios.delete(`http://localhost:3001/car/${newCarId}`)
+  const response = await axios.delete(`http://localhost:${constants.DEFAULT_E2E_SERVER_PORT}/car/${newCarId}`)
   expect(response.status).toEqual(HttpStatus.OK)
 })
 
 test('Car - Should not be possible to access nonexistent data (404)', async () =>
-  await axios.get(`http://localhost:3001/car/${newCarId}`).catch((reason) => expect(reason.response.status).toEqual(HttpStatus.NOT_FOUND)))
+  await axios
+    .get(`http://localhost:${constants.DEFAULT_E2E_SERVER_PORT}/car/${newCarId}`)
+    .catch((reason) => expect(reason.response.status).toEqual(HttpStatus.NOT_FOUND)))
 
 test('Car - Should not be possible to update nonexistent data (404)', async () =>
   await axios
-    .put('http://localhost:3001/car', { id: newCarId, colour: 'Red', year: 'HttpStatus.OK0' })
+    .put(`http://localhost:${constants.DEFAULT_E2E_SERVER_PORT}/car`, { id: newCarId, colour: 'Red', year: 'HttpStatus.OK0' })
     .catch((reason) => expect(reason.response.status).toEqual(HttpStatus.NOT_FOUND)))
 
 test('Car - Should not be possible to delete nonexistent data (404)', async () =>
   await axios
-    .delete(`http://localhost:3001/car/${newCarId}`)
+    .delete(`http://localhost:${constants.DEFAULT_E2E_SERVER_PORT}/car/${newCarId}`)
     .catch((reason) => expect(reason.response.status).toEqual(HttpStatus.NOT_FOUND)))
 
 // Model - D
 
 test('Model - Should be possible to delete just added data', async () => {
-  const response = await axios.delete(`http://localhost:3001/model/${newModelId}`)
+  const response = await axios.delete(`http://localhost:${constants.DEFAULT_E2E_SERVER_PORT}/model/${newModelId}`)
   expect(response.status).toEqual(HttpStatus.OK)
 })
 
 test('Model - Should not be possible to access nonexistent data (404)', async () =>
   await axios
-    .get(`http://localhost:3001/model/${newModelId}`)
+    .get(`http://localhost:${constants.DEFAULT_E2E_SERVER_PORT}/model/${newModelId}`)
     .catch((reason) => expect(reason.response.status).toEqual(HttpStatus.NOT_FOUND)))
 
 test('Model - Should not be possible to update nonexistent data (404)', async () =>
   await axios
-    .put('http://localhost:3001/model', { id: newModelId, name: 'F40' })
+    .put(`http://localhost:${constants.DEFAULT_E2E_SERVER_PORT}/model`, { id: newModelId, name: 'F40' })
     .catch((reason) => expect(reason.response.status).toEqual(HttpStatus.NOT_FOUND)))
 
 test('Model - Should not be possible to delete nonexistent data (404)', async () =>
   await axios
-    .delete(`http://localhost:3001/model/${newModelId}`)
+    .delete(`http://localhost:${constants.DEFAULT_E2E_SERVER_PORT}/model/${newModelId}`)
     .catch((reason) => expect(reason.response.status).toEqual(HttpStatus.NOT_FOUND)))
 
 // Make - D
 
 test('Make - Should be possible to delete just added data', async () => {
-  const response = await axios.delete(`http://localhost:3001/make/${newMakeId}`)
+  const response = await axios.delete(`http://localhost:${constants.DEFAULT_E2E_SERVER_PORT}/make/${newMakeId}`)
   expect(response.status).toEqual(HttpStatus.OK)
 })
 
 test('Make - Should not be possible to access nonexistent data (404)', async () =>
   await axios
-    .get(`http://localhost:3001/make/${newMakeId}`)
+    .get(`http://localhost:${constants.DEFAULT_E2E_SERVER_PORT}/make/${newMakeId}`)
     .catch((reason) => expect(reason.response.status).toEqual(HttpStatus.NOT_FOUND)))
 
 test('Make - Should not be possible to update nonexistent data (404)', async () =>
   await axios
-    .put('http://localhost:3001/make', { id: newMakeId, name: 'Ferrari' })
+    .put(`http://localhost:${constants.DEFAULT_E2E_SERVER_PORT}/make`, { id: newMakeId, name: 'Ferrari' })
     .catch((reason) => expect(reason.response.status).toEqual(HttpStatus.NOT_FOUND)))
 
 test('Make - Should not be possible to delete nonexistent data (404)', async () =>
   await axios
-    .delete(`http://localhost:3001/make/${newMakeId}`)
+    .delete(`http://localhost:${constants.DEFAULT_E2E_SERVER_PORT}/make/${newMakeId}`)
     .catch((reason) => expect(reason.response.status).toEqual(HttpStatus.NOT_FOUND)))

@@ -1,3 +1,5 @@
+import HttpStatus from 'http-status-codes'
+
 import { v4 as uuidv4 } from 'uuid'
 
 import { model } from '../server-helper'
@@ -8,7 +10,7 @@ const router = Router()
 
 router.get('/:id', async (req, res) => {
   const make = await (await model).Make.findOne({ where: { id: req.params.id } })
-  if (!make) res.status(404)
+  if (!make) res.status(HttpStatus.NOT_FOUND)
   res.send(make)
 })
 
@@ -19,8 +21,8 @@ router.put('/', async (req, res) => {
   const make = await (await model).Make.findOne({ where: { id: req.body.id } })
   if (make) {
     ;(await model).Make.update({ name: req.body.name }, { where: { id: req.body.id } })
-    res.status(200)
-  } else res.status(404)
+    res.status(HttpStatus.OK)
+  } else res.status(HttpStatus.NOT_FOUND)
   return res.send()
 })
 
@@ -28,8 +30,8 @@ router.delete('/:id', async (req, res) => {
   const make = await (await model).Make.findOne({ where: { id: req.params.id } })
   if (make) {
     make.destroy()
-    res.status(200)
-  } else res.status(404)
+    res.status(HttpStatus.OK)
+  } else res.status(HttpStatus.NOT_FOUND)
   return res.send()
 })
 

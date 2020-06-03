@@ -1,3 +1,5 @@
+import HttpStatus from 'http-status-codes'
+
 import { fewWordsSoundingLike } from '../data-muse'
 
 import { v4 as uuidv4 } from 'uuid'
@@ -10,7 +12,7 @@ const router = Router()
 
 router.get('/:id', async (req, res) => {
   const model = await (await sequelizeModel).Model.findOne({ where: { id: req.params.id } })
-  if (!model) res.status(404)
+  if (!model) res.status(HttpStatus.NOT_FOUND)
   res.send(model)
 })
 
@@ -33,8 +35,8 @@ router.put('/', async (req, res) => {
       { makeId: req.body.makeId, name: req.body.name, similarSoundingWordToNameParagraph: await fewWordsSoundingLike(req.body.name) },
       { where: { id: req.body.id } }
     )
-    res.status(200)
-  } else res.status(404)
+    res.status(HttpStatus.OK)
+  } else res.status(HttpStatus.NOT_FOUND)
   return res.send()
 })
 
@@ -42,8 +44,8 @@ router.delete('/:id', async (req, res) => {
   const model = await (await sequelizeModel).Model.findOne({ where: { id: req.params.id } })
   if (model) {
     model.destroy()
-    res.status(200)
-  } else res.status(404)
+    res.status(HttpStatus.OK)
+  } else res.status(HttpStatus.NOT_FOUND)
   return res.send()
 })
 

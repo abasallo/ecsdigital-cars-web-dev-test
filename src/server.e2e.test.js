@@ -1,5 +1,7 @@
 import 'dotenv/config'
 
+import HttpStatus from 'http-status-codes'
+
 import { afterAll, beforeAll, expect } from '@jest/globals'
 
 import { server } from './server-helper'
@@ -38,7 +40,7 @@ test('Make - Should be possible to add new data', async () => {
 
   expect(response.data.id).toBeDefined()
   expect(response.data.name).toBe('MCLaren')
-  expect(response.status).toEqual(200)
+  expect(response.status).toEqual(HttpStatus.OK)
 })
 
 test('Make - Should be possible to update an existing data', async () => {
@@ -47,7 +49,7 @@ test('Make - Should be possible to update an existing data', async () => {
 
   expect(updated.data.id).toBe(newMakeId)
   expect(updated.data.name).toBe('McLaren')
-  expect(updated.status).toEqual(200)
+  expect(updated.status).toEqual(HttpStatus.OK)
 })
 
 test('Make - Should be possible to access existing data', async () => {
@@ -55,7 +57,7 @@ test('Make - Should be possible to access existing data', async () => {
 
   expect(response.data.id).toBe(newMakeId)
   expect(response.data.name).toBe('McLaren')
-  expect(response.status).toEqual(200)
+  expect(response.status).toEqual(HttpStatus.OK)
 })
 
 // Model - CRU
@@ -72,7 +74,7 @@ test('Model - Should be possible to add new data', async () => {
   expect(response.data.similarSoundingWordToNameParagraph.length).toBeLessThanOrEqual(
     Number(process.env.WORDS_SOUNDING_SIMILAR_TO_MODEL_MAX_PARAGRAPH_LENGTH) || DEFAULT_MAX_PARAGRAPH_LENGTH
   )
-  expect(response.status).toEqual(200)
+  expect(response.status).toEqual(HttpStatus.OK)
 })
 
 test('Model - Should be possible to update an existing data', async () => {
@@ -86,7 +88,7 @@ test('Model - Should be possible to update an existing data', async () => {
   expect(updated.data.similarSoundingWordToNameParagraph.length).toBeLessThanOrEqual(
     Number(process.env.WORDS_SOUNDING_SIMILAR_TO_MODEL_MAX_PARAGRAPH_LENGTH) || DEFAULT_MAX_PARAGRAPH_LENGTH
   )
-  expect(updated.status).toEqual(200)
+  expect(updated.status).toEqual(HttpStatus.OK)
 })
 
 test('Model - Should be possible to access existing data', async () => {
@@ -95,7 +97,7 @@ test('Model - Should be possible to access existing data', async () => {
   expect(response.data.id).toBe(newModelId)
   expect(response.data.makeId).toBe(newMakeId)
   expect(response.data.name).toBe('F1')
-  expect(response.status).toEqual(200)
+  expect(response.status).toEqual(HttpStatus.OK)
 })
 
 // Car - CRU
@@ -109,7 +111,7 @@ test('Car - Should be possible to add new data', async () => {
   expect(response.data.modelId).toBe(undefined)
   expect(response.data.colour).toBe('Grey')
   expect(response.data.year).toBe('1995')
-  expect(response.status).toEqual(200)
+  expect(response.status).toEqual(HttpStatus.OK)
 })
 
 test('Car - Should be possible to update new data', async () => {
@@ -121,7 +123,7 @@ test('Car - Should be possible to update new data', async () => {
   expect(updated.data.modelId).toBe(newModelId)
   expect(updated.data.colour).toBe('Silver')
   expect(updated.data.year).toBe('1996')
-  expect(updated.status).toEqual(200)
+  expect(updated.status).toEqual(HttpStatus.OK)
 })
 
 test('Car - Should be possible to access new data', async () => {
@@ -131,59 +133,69 @@ test('Car - Should be possible to access new data', async () => {
   expect(response.data.modelId).toBe(newModelId)
   expect(response.data.colour).toBe('Silver')
   expect(response.data.year).toBe('1996')
-  expect(response.status).toEqual(200)
+  expect(response.status).toEqual(HttpStatus.OK)
 })
 
 // Car - D
 
 test('Car - Should be possible to delete just added data', async () => {
   const response = await axios.delete(`http://localhost:3001/car/${newCarId}`)
-  expect(response.status).toEqual(200)
+  expect(response.status).toEqual(HttpStatus.OK)
 })
 
 test('Car - Should not be possible to access nonexistent data (404)', async () =>
-  await axios.get(`http://localhost:3001/car/${newCarId}`).catch((reason) => expect(reason.response.status).toEqual(404)))
+  await axios.get(`http://localhost:3001/car/${newCarId}`).catch((reason) => expect(reason.response.status).toEqual(HttpStatus.NOT_FOUND)))
 
 test('Car - Should not be possible to update nonexistent data (404)', async () =>
   await axios
-    .put('http://localhost:3001/car', { id: newCarId, colour: 'Red', year: '2000' })
-    .catch((reason) => expect(reason.response.status).toEqual(404)))
+    .put('http://localhost:3001/car', { id: newCarId, colour: 'Red', year: 'HttpStatus.OK0' })
+    .catch((reason) => expect(reason.response.status).toEqual(HttpStatus.NOT_FOUND)))
 
 test('Car - Should not be possible to delete nonexistent data (404)', async () =>
-  await axios.delete(`http://localhost:3001/car/${newCarId}`).catch((reason) => expect(reason.response.status).toEqual(404)))
+  await axios
+    .delete(`http://localhost:3001/car/${newCarId}`)
+    .catch((reason) => expect(reason.response.status).toEqual(HttpStatus.NOT_FOUND)))
 
 // Model - D
 
 test('Model - Should be possible to delete just added data', async () => {
   const response = await axios.delete(`http://localhost:3001/model/${newModelId}`)
-  expect(response.status).toEqual(200)
+  expect(response.status).toEqual(HttpStatus.OK)
 })
 
 test('Model - Should not be possible to access nonexistent data (404)', async () =>
-  await axios.get(`http://localhost:3001/model/${newModelId}`).catch((reason) => expect(reason.response.status).toEqual(404)))
+  await axios
+    .get(`http://localhost:3001/model/${newModelId}`)
+    .catch((reason) => expect(reason.response.status).toEqual(HttpStatus.NOT_FOUND)))
 
 test('Model - Should not be possible to update nonexistent data (404)', async () =>
   await axios
     .put('http://localhost:3001/model', { id: newModelId, name: 'F40' })
-    .catch((reason) => expect(reason.response.status).toEqual(404)))
+    .catch((reason) => expect(reason.response.status).toEqual(HttpStatus.NOT_FOUND)))
 
 test('Model - Should not be possible to delete nonexistent data (404)', async () =>
-  await axios.delete(`http://localhost:3001/model/${newModelId}`).catch((reason) => expect(reason.response.status).toEqual(404)))
+  await axios
+    .delete(`http://localhost:3001/model/${newModelId}`)
+    .catch((reason) => expect(reason.response.status).toEqual(HttpStatus.NOT_FOUND)))
 
 // Make - D
 
 test('Make - Should be possible to delete just added data', async () => {
   const response = await axios.delete(`http://localhost:3001/make/${newMakeId}`)
-  expect(response.status).toEqual(200)
+  expect(response.status).toEqual(HttpStatus.OK)
 })
 
 test('Make - Should not be possible to access nonexistent data (404)', async () =>
-  await axios.get(`http://localhost:3001/make/${newMakeId}`).catch((reason) => expect(reason.response.status).toEqual(404)))
+  await axios
+    .get(`http://localhost:3001/make/${newMakeId}`)
+    .catch((reason) => expect(reason.response.status).toEqual(HttpStatus.NOT_FOUND)))
 
 test('Make - Should not be possible to update nonexistent data (404)', async () =>
   await axios
     .put('http://localhost:3001/make', { id: newMakeId, name: 'Ferrari' })
-    .catch((reason) => expect(reason.response.status).toEqual(404)))
+    .catch((reason) => expect(reason.response.status).toEqual(HttpStatus.NOT_FOUND)))
 
 test('Make - Should not be possible to delete nonexistent data (404)', async () =>
-  await axios.delete(`http://localhost:3001/make/${newMakeId}`).catch((reason) => expect(reason.response.status).toEqual(404)))
+  await axios
+    .delete(`http://localhost:3001/make/${newMakeId}`)
+    .catch((reason) => expect(reason.response.status).toEqual(HttpStatus.NOT_FOUND)))

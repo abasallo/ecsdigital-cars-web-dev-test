@@ -1,0 +1,298 @@
+{
+	"info": {
+		"_postman_id": "7a854136-3d6d-43e8-904f-96f481d92db8",
+		"name": "ECS Digital - Code Test - Web Dev - Cars",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Make - POST",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"SEATs\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/make",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"make"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Model - POST",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Makineros\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/model",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"model"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Car - POST",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"colour\": \"Red\",\n\t\"year\": \"2000\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/car",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"car"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Make - PUT",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": \"74e8e313-bd5a-4fdd-99a2-915b5b9c3f0c\",\n\t\"name\": \"SEAT\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/make",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"make"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Model - PUT",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": \"0b42c9ca-72bf-4c68-9ae7-84102f53e640\",\n\t\"makeId\": \"74e8e313-bd5a-4fdd-99a2-915b5b9c3f0c\",\n\t\"name\": \"SEAT\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/model",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"model"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Car - PUT",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": \"3a21a37f-27df-49d9-bfb3-8f57bb8134ca\",\n\t\"modelId\": \"0b42c9ca-72bf-4c68-9ae7-84102f53e640\",\n\t\"colour\": \"Silver\",\n\t\"year\": \"1996\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/car",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"car"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Make - GET",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/make/5720fc55-9a21-4957-9350-0c35977c8fab",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"make",
+						"5720fc55-9a21-4957-9350-0c35977c8fab"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Model - GET",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/model/976a0121-e1e8-4332-ae5c-6f9e930de579",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"model",
+						"976a0121-e1e8-4332-ae5c-6f9e930de579"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Car - GET",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/car/49aebcd7-ef4f-463b-890f-7fdfd0ca57b9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"car",
+						"49aebcd7-ef4f-463b-890f-7fdfd0ca57b9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Make - DELETE",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/make/74e8e313-bd5a-4fdd-99a2-915b5b9c3f0c",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"make",
+						"74e8e313-bd5a-4fdd-99a2-915b5b9c3f0c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Model - DELETE",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/model/0b42c9ca-72bf-4c68-9ae7-84102f53e640",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"model",
+						"0b42c9ca-72bf-4c68-9ae7-84102f53e640"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Car - DELETE",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/car/3a21a37f-27df-49d9-bfb3-8f57bb8134ca",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"car",
+						"3a21a37f-27df-49d9-bfb3-8f57bb8134ca"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

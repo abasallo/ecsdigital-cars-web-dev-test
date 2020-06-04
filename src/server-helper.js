@@ -10,6 +10,9 @@ import routes from './routes'
 
 import { initSequelize } from './orm/sequelize'
 
+import swaggerUI from 'swagger-ui-express'
+import swaggerDoc from '../swagger.json'
+
 export const model = initSequelize()
 
 export const server = express()
@@ -31,3 +34,5 @@ server.use((err, req, res, next) => {
 server.use('/make', routes.make)
 server.use('/model', routes.model)
 server.use('/car', routes.car)
+
+server.use('/', swaggerUI.serve, swaggerUI.setup(swaggerDoc))

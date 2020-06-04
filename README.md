@@ -8,6 +8,11 @@ In the project directory, you must copy .env.example as .env and fill as needed 
 
 Also in the project directory, you can run:
 
+## Swagger Documentation
+
+Just follow instructions below to run the project in any mode.
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser. 
+
 ### `npm install`
 
 To download dependencies into node_modules directory.

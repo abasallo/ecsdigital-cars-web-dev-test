@@ -1,0 +1,670 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "ECS Digital - Code Test - Web Dev - Cars",
+    "contact": {}
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/make": {
+      "post": {
+        "summary": "Make - POST",
+        "tags": [
+          "Make"
+        ],
+        "operationId": "Make-POST",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Make-POSTRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {}
+          },
+          "400": {
+            "description": "BAD_REQUEST - Probably malformed JSON request",
+            "headers": {}
+          }
+        }
+      },
+      "put": {
+        "summary": "Make - PUT",
+        "tags": [
+          "Make"
+        ],
+        "operationId": "Make-PUT",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Make-PUTRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {}
+          },
+          "400": {
+            "description": "BAD_REQUEST - Probably malformed JSON request",
+            "headers": {}
+          },
+          "404": {
+            "description": "NOT_FOUND",
+            "headers": {}
+          }
+        }
+      },
+      "get": {
+        "summary": "Make - GET",
+        "tags": [
+          "Make"
+        ],
+        "operationId": "Make-GET",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Make-GETRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {}
+          },
+          "400": {
+            "description": "BAD_REQUEST - Probably malformed JSON request",
+            "headers": {}
+          },
+          "404": {
+            "description": "NOT_FOUND",
+            "headers": {}
+          }
+        }
+      },
+      "delete": {
+        "summary": "Make - DELETE",
+        "tags": [
+          "Make"
+        ],
+        "operationId": "Make-DELETE",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Make-DELETERequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {}
+          },
+          "400": {
+            "description": "BAD_REQUEST - Probably malformed JSON request",
+            "headers": {}
+          },
+          "404": {
+            "description": "NOT_FOUND",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/model": {
+      "post": {
+        "summary": "Model - POST",
+        "tags": [
+          "Model"
+        ],
+        "operationId": "Model-POST",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Model-POSTRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {}
+          },
+          "400": {
+            "description": "BAD_REQUEST - Probably malformed JSON request",
+            "headers": {}
+          }
+        }
+      },
+      "put": {
+        "summary": "Model - PUT",
+        "tags": [
+          "Model"
+        ],
+        "operationId": "Model-PUT",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Model-PUTRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {}
+          },
+          "400": {
+            "description": "BAD_REQUEST - Probably malformed JSON request",
+            "headers": {}
+          },
+          "404": {
+            "description": "NOT_FOUND",
+            "headers": {}
+          }
+        }
+      },
+      "get": {
+        "summary": "Model - GET",
+        "tags": [
+          "Model"
+        ],
+        "operationId": "Model-GET",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Model-GETRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {}
+          },
+          "400": {
+            "description": "BAD_REQUEST - Probably malformed JSON request",
+            "headers": {}
+          },
+          "404": {
+            "description": "NOT_FOUND",
+            "headers": {}
+          }
+        }
+      },
+      "delete": {
+        "summary": "Model - DELETE",
+        "tags": [
+          "Model"
+        ],
+        "operationId": "Model-DELETE",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Model-DELETERequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {}
+          },
+          "400": {
+            "description": "BAD_REQUEST - Probably malformed JSON request",
+            "headers": {}
+          },
+          "404": {
+            "description": "NOT_FOUND",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/car": {
+      "post": {
+        "summary": "Car - POST",
+        "tags": [
+          "Car"
+        ],
+        "operationId": "Car-POST",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Car-POSTRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {}
+          },
+          "400": {
+            "description": "BAD_REQUEST - Probably malformed JSON request",
+            "headers": {}
+          }
+        }
+      },
+      "put": {
+        "summary": "Car - PUT",
+        "tags": [
+          "Car"
+        ],
+        "operationId": "Car-PUT",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Car-PUTRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {}
+          },
+          "400": {
+            "description": "BAD_REQUEST - Probably malformed JSON request",
+            "headers": {}
+          },
+          "404": {
+            "description": "NOT_FOUND",
+            "headers": {}
+          }
+        }
+      },
+      "get": {
+        "summary": "Car - GET",
+        "tags": [
+          "Car"
+        ],
+        "operationId": "Car-GET",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Car-GETRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {}
+          },
+          "400": {
+            "description": "BAD_REQUEST - Probably malformed JSON request",
+            "headers": {}
+          },
+          "404": {
+            "description": "NOT_FOUND",
+            "headers": {}
+          }
+        }
+      },
+      "delete": {
+        "summary": "Car - DELETE",
+        "tags": [
+          "Car"
+        ],
+        "operationId": "Car-DELETE",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Car-DELETERequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {}
+          },
+          "400": {
+            "description": "BAD_REQUEST - Probably malformed JSON request",
+            "headers": {}
+          },
+          "404": {
+            "description": "NOT_FOUND",
+            "headers": {}
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Make-POSTRequest": {
+      "title": "Make POST Request",
+      "example": {
+        "name": "SEAT"
+      },
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "Make-PUTRequest": {
+      "title": "Make PUT Request",
+      "example": {
+        "id": "makeUUID",
+        "name": "SEAT"
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "Make-GETRequest": {
+      "title": "Make GET Request",
+      "example": {
+        "id": "makeUUID"
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "Make-DELETERequest": {
+      "title": "Make DELETE Request",
+      "example": {
+        "id": "makeUUID"
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "Model-POSTRequest": {
+      "title": "Model POST Request",
+      "example": {
+        "makeId": "makeUUID",
+        "name": "Makinero"
+      },
+      "type": "object",
+      "properties": {
+        "makeId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "Model-PUTRequest": {
+      "title": "Model PUT Request",
+      "example": {
+        "id": "modelUUID",
+        "makeId": "makeUUID",
+        "name": "Makinero"
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "makeId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "Model-GETRequest": {
+      "title": "Model GET Request",
+      "example": {
+        "id": "modelUUID"
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "Model-DELETERequest": {
+      "title": "Model DELETE Request",
+      "example": {
+        "id": "modelUUID"
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "Car-POSTRequest": {
+      "title": "Car POST Request",
+      "example": {
+        "modelId": "modelUUID",
+        "colour": "Silver",
+        "year": "1996"
+      },
+      "type": "object",
+      "properties": {
+        "modelId": {
+          "type": "string"
+        },
+        "colour": {
+          "type": "string"
+        },
+        "year": {
+          "type": "string"
+        }
+      }
+    },
+    "Car-PUTRequest": {
+      "title": "Car PUT Request",
+      "example": {
+        "id": "carUUID",
+        "modelId": "modelUUID",
+        "colour": "Silver",
+        "year": "1996"
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "modelId": {
+          "type": "string"
+        },
+        "colour": {
+          "type": "string"
+        },
+        "year": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "Car-GETRequest": {
+      "title": "Car GET Request",
+      "example": {
+        "id": "carUUID"
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "Car-DELETERequest": {
+      "title": "Car DELETE Request",
+      "example": {
+        "id": "carUUID"
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  },
+  "tags": [
+    {
+      "name": "Make",
+      "description": "Car's Make"
+    },
+    {
+      "name": "Model",
+      "description": "Car's Model"
+    },
+    {
+      "name": "Car",
+      "description": "Object representing a Car"
+    }
+  ]
+}
